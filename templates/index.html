@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <style>
+        body {
+            background-color: #fdf2e9;
+            font-family: 'Arial', sans-serif;
+        }
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+            background: #fff;
+            border-radius: 10px;
+            margin: 20px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .search-bar {
+            border: 1px solid #ddd;
+            border-radius: 50px;
+            padding: 8px 15px;
+            width: 250px;
+            display: flex;
+            align-items: center;
+            background: #fff;
+        }
+        .search-bar input {
+            border: none;
+            outline: none;
+            width: 100%;
+        }
+        .dashboard-cards {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+            gap: 15px;
+        }
+        .card-custom {
+            flex: 1;
+            padding: 20px;
+            border-radius: 10px;
+            background: #fff;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .table-container {
+            background: #fff;
+            padding: 20px;
+            margin: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-header">
+        <h2>Dashboard</h2>
+        
+       
+    </div>
+    <div class="table-container">
+        <h4>Last 10 User Activities</h4>
+        <table id="activityTable" class="table table-striped">
+            <thead class="table-light">
+                <tr>
+                    <th>Username</th>
+                    <th>Activity</th>
+                    <th>Location</th>
+                    <th>Timestamp</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for activity in activities %}
+                <tr>
+                    <td>{{ activity[0] }}</td>
+                    <td>{{ activity[3] }}</td>
+                    <td>Lat: {{ activity[1] }}, Lon: {{ activity[2] }}</td>
+                    <td>{{ activity[4] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <script>
+        $(document).ready(function() {
+            var table = $('#activityTable').DataTable();
+            $('#searchInput').on('keyup', function() {
+                table.search(this.value).draw();
+            });
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
